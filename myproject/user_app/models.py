@@ -3,16 +3,9 @@ from django.db import models
 # Create your models here.
 class Category(models.Model):
 	categoryName = models.CharField(max_length=50)
+	categoryDiscount=models.IntegerField()
 	def __str__(self):
 		return f'{self.categoryName}'
-
-
-class SubCategory(models.Model):
-	subCategoryName=models.CharField(max_length=50)
-	categoryName=models.ForeignKey(Category,on_delete=models.CASCADE)
-	subCategoryDiscount=models.IntegerField()
-	def __str__(self):
-		return f'{self.subCategoryName}'
 
 
 class Product(models.Model):
@@ -28,7 +21,6 @@ class Product(models.Model):
 	productQuantity=models.IntegerField()
 	productDiscountedPrice=models.IntegerField()
 	productCategory = models.ForeignKey(Category,on_delete=models.CASCADE)
-	productSubCategory = models.ForeignKey(SubCategory,on_delete=models.CASCADE)
 	avgReview=models.FloatField(default=50)
 	noOfReviews=models.IntegerField(default=1)
 	def __str__(self):
