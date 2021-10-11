@@ -20,7 +20,7 @@ class Product(models.Model):
 	productQuantity=models.IntegerField()
 	productDiscountedPrice=models.IntegerField()
 	productCategory = models.ForeignKey(Category,on_delete=models.CASCADE)
-	avgReview=models.FloatField(default=50)
+	avgReview=models.FloatField(default=105)
 	noOfReviews=models.IntegerField(default=1)
 	def __str__(self):
 		return f'{self.productName}'
