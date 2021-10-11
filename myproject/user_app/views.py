@@ -98,9 +98,9 @@ def register(request):
         )
         newUser.save()
         categories=Category.objects.all()
-        return render(request,'index.html',{'categories':categories,'message':'Registered Successfully','bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
+        return render(request,'user_app/index.html',{'categories':categories,'message':'Registered Successfully','bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
     categories=Category.objects.all()
-    return render(request,'index.html',{'categories':categories,'bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
+    return render(request,'user_app/index.html',{'categories':categories,'bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
    
 
 def loginUser(request):
@@ -153,11 +153,11 @@ def loginUser(request):
             for us in post:         
                 request.session['userName'] = us.userName
         else:
-            return render(request,'index.html',{'categories':categories,'message':'Incorrect Password','bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
+            return render(request,'user_app/index.html',{'categories':categories,'message':'Incorrect Password','bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
     if request.session.has_key('userName'):
         userName=request.session['userName']
-        return render(request,'index.html',{'categories':categories,'userName':userName,'bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
-    return render(request,'index.html',{'categories':categories,'bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
+        return render(request,'user_app/index.html',{'categories':categories,'userName':userName,'bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
+    return render(request,'user_app/index.html',{'categories':categories,'bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
 
 def logout(request):
     del request.session['userName']
