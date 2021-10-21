@@ -71,7 +71,8 @@
           <ul class="dropdown-menu">          
               <li><a href="{% url 'myProducts'%}" class="dropdown-item">Wishlist</a></li>
               <li><a href="{% url 'logout'%}" class="dropdown-item">Logout</a></li>
-               <li><a href="{% url 'myCart'%}" class="dropdown-item">My Cart</a></li>
+              <li><a href="{% url 'myCart'%}" class="dropdown-item">My Cart</a></li>
+              <li><a href="{% url 'buyedProducts'%}" class="dropdown-item">My Products</a></li>
           </ul>
         </li>
       {%else%}
