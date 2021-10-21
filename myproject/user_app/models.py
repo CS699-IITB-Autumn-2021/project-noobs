@@ -2,12 +2,31 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
+	"""We use this for creating category table.
+
+	It returns :func:`__str__ function`.
+
+	.. note::
+
+	   Django automatically converts it to :mod:`sqllite`.
+
+	"""
 	categoryName = models.CharField(max_length=50)
 	def __str__(self):
 		return f'{self.categoryName}'
 
 
 class Product(models.Model):
+	"""We use this for creating Product table with attributes like productBuyed,produductCategory,etc.
+
+    It returns :func:`__str__ function`.
+
+    .. note::
+
+       Django automatically converts it to :mod:`sqllite`.
+
+    """
+
 	productImage = models.ImageField(upload_to = "productImages/")
 	productName = models.CharField(max_length=40)
 	productDescription = models.TextField()
@@ -26,6 +45,15 @@ class Product(models.Model):
 		return f'{self.productName}'
 
 class User(models.Model):
+	"""We use this for creating User table with attributes like UserName,UserEamail,etc.
+
+	It returns :func:`__str__ function`.
+
+	.. note::
+
+	   Django automatically converts it to :mod:`sqllite`.
+
+	"""
 	userName = models.CharField(max_length=40)
 	userEmail = models.EmailField(max_length=60)
 	userPassword = models.CharField(max_length=20)
@@ -39,6 +67,16 @@ class User(models.Model):
 		return f'{self.userName}'
 
 class Review(models.Model):
+	"""We use this for creating Review table with attributes like reviewTitle,reviewUseretc.
+
+    It returns :func:`__str__ function`.
+
+    .. note::
+
+       Django automatically converts it to :mod:`sqllite`.
+
+    """
+
 	reviewTitle=models.CharField(max_length=40)
 	reviewDesc=models.TextField()
 	reviewRating=models.IntegerField()
