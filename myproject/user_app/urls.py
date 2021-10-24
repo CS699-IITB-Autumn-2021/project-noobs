@@ -12,4 +12,10 @@ urlpatterns = [
     path('search/',views.search,name="search"),
     path('myProducts/',views.myProducts,name="myProducts"),
     path('myCart/',views.myCart,name="myCart"),
-]
+    path('savefav/<int:product_id>/',views.savefav,name="savefav"),
+    path('removefav/<int:product_id>/',views.removefav,name="removefav"),
+    path('give_review/<int:product_id>/',views.give_review,name="give_review"), 
+    path('addToCart/<int:product_id>',views.addToCart,name="addToCart"),
+    path('buyedProducts/',views.buyedProducts,name='buyedProducts'),
+    path('checkout/<int:price>/',views.checkout,name='checkout'), 
+    path('removeCart/<int:product_id>/',views.removeCart,name="removeCart"),
