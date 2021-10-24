@@ -1,3 +1,4 @@
+
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Product
@@ -462,4 +463,3 @@ def give_review(request,product_id):
     return redirect('product',product_id)
 def checkout(request,price):
     pass
-
