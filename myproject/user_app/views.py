@@ -446,6 +446,5 @@ def checkout(request,price):
             user.userCart.remove(product)
             product.productQuantity-=1
         return redirect('buyedProducts')
-
     return redirect('buyedProducts') 
 
