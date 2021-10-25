@@ -393,19 +393,19 @@ def addToCart(request,product_id):
 
 
 def buyedProducts(request):
-    """
-     This method for showing buyed or purchased products.
+      """
+       This method for showing buyed or purchased products.
 
 
-     :param name: request.
-     :type request: Implicit.
+       :param name: request.
+       :type request: Implicit.
 
 
-     :returns:  render-- buyed_products.html page
+       :returns:  render-- buyed_products.html page
 
-    .. note::
-       This method gets details of products from the **database**.
-    """
+      .. note::
+         This method gets details of products from the **database**.
+      """
     user=User.objects.get(userEmail=request.session['userEmail'])
     categories=Category.objects.all()
     if request.session.has_key('userName'):
@@ -463,3 +463,4 @@ def give_review(request,product_id):
     return redirect('product',product_id)
 def checkout(request,price):
     pass
+
