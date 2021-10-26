@@ -38,32 +38,34 @@
 		 <h4 style="margin-top:150px;margin-bottom:10px;"><span class="badge badge-dark">My Products:</span></h4>
 	{% if sales%}
 	<div class="row justify-content-center">
-
+      
       {% for sale in sales%}
-        <div class="col-lg-3  col-sm-4 col-6 mt-3 mb-3">
-        <div class="myCardCol">
-        <a href="{% url 'product' product_id=sale.saleProduct.id %}">
-        <div class="card myCard">
-          <img class="card-img-top" src="{{sale.saleProduct.productImage.url}}" alt="Card image">
-          <div class="card-body">
-            <span class="badge badge-warning">{{sale.saleProduct.productDiscount}}% OFF</span><br>
-            <span class="card-title myCardTitle"><b>{{sale.saleProduct.productName}}</span></b>
-            <br>
-            <span style="text-decoration: line-through;"><b>&#8377;{{sale.saleProduct.productPrice}}</b></span><span style="float: right">&#8377;{{sale.saleProduct.productDiscountedPrice}}</span>
-            <br>
-            <span class="card-title myCardTitle"><b style="color:green;">{{sale.status}}</span></b><br><span>{{sale.saleAddedDate}}</span>
-          </div>
-        </div>
-    	</a>
-         <span class="badge badge-dark">
-         <div class="star-ratings-css">
-              <div class="star-ratings-css-top" style="width:{{sale.saleProduct.avgReview}}%;"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          </div>&nbsp;&nbsp;
-          </span>
-        </div> 
-      </div>
-  	</a>
+        {% for product in sale.saleProducts.all %}
+              <div class="col-lg-3  col-sm-4 col-6 mt-3 mb-3">
+              <div class="myCardCol">
+              <a href="{% url 'product' product_id=product.id %}">
+              <div class="card myCard">
+                <img class="card-img-top" src="{{product.productImage.url}}" alt="Card image">
+                <div class="card-body">
+                  <span class="badge badge-warning">{{product.productDiscount}}% OFF</span><br>
+                  <span class="card-title myCardTitle"><b>{{product.productName}}</span></b>
+                  <br>
+                  <span style="text-decoration: line-through;"><b>&#8377;{{product.productPrice}}</b></span><span style="float: right">&#8377;{{product.productDiscountedPrice}}</span>
+                  <br>
+                  <span class="card-title myCardTitle"><b style="color:green;">{{sale.status}}</span></b><br><span>{{sale.saleAddedDate}}</span>
+                </div>
+              </div>
+          	</a>
+               <span class="badge badge-dark">
+               <div class="star-ratings-css">
+                    <div class="star-ratings-css-top" style="width:{{product.avgReview}}%;"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                </div>&nbsp;&nbsp;
+                </span>
+              </div> 
+            </div>
+        	</a>
+        {% endfor %} 
       {% endfor %}
     </div>
     {%else%}

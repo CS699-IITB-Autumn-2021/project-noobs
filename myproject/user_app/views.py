@@ -5,6 +5,11 @@ from .models import Category
 from .models import User
 from .models import Review
 from .models import Sales
+import razorpay
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseBadRequest
+
 # Create your views here.
 def index(request):
     """
@@ -379,10 +384,8 @@ def buyedProducts(request):
     user=User.objects.get(userEmail=request.session['userEmail'])
     sales=Sales.objects.filter(saleUser=user).order_by('-saleAddedDate')
     categories=Category.objects.all()
-    if request.session.has_key('userName'):
-        userName=request.session['userName']
-        return render(request,'buyed_products.html',{'categories':categories,'userName':userName,'sales':sales})
-    return render(request,'buyed_products.html',{'categories':categories,'sales':sales})
+    print(sales)
+    return render(request,'buyed_products.html',{'categories':categories,'userName':user.userName,'sales':sales})
 
 def removeCart(request,product_id):
     """
@@ -433,6 +436,10 @@ def give_review(request,product_id):
     review.save()
     return redirect('product',product_id)
 
+
+razorpay_client = razorpay.Client(
+    auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
+
 def checkout(request,price):
     user=User.objects.get(userEmail=request.session['userEmail'])
     mode = str(request.POST["paymentmode"])
@@ -440,11 +447,76 @@ def checkout(request,price):
     if mode=="Cash On Delivery":
         address=request.POST['address']
         user.userAddress=address
-        for product in user.userCart.all():    
-            sale=Sales(saleUser=user,saleProduct=product,saleAddress=address,status="Pending",salePrice=product.productDiscountedPrice)
-            sale.save()
+        sale=Sales(saleUser=user,saleAddress=address,status="Pending",salePrice=price,paymentMode="Cash On Delivery")
+        sale.save()
+        for product in user.userCart.all(): 
+            sale.saleProducts.add(product)
             user.userCart.remove(product)
             product.productQuantity-=1
-        return redirect('buyedProducts')
-    return redirect('buyedProducts') 
+        return render(request, 'success.html',{'userName':user.userName})
+    else:
+        currency = 'INR'
+        razorpay_order = razorpay_client.order.create(dict(amount=price*100,currency=currency,payment_capture='0'))
+        razorpay_order_id = razorpay_order['id']
+        callback_url = 'paymenthandler/'
+        context = {}
+        context['razorpay_order_id'] = razorpay_order_id
+        context['razorpay_merchant_key'] = settings.RAZOR_KEY_ID
+        context['razorpay_amount'] = price*100
+        context['currency'] = currency
+        context['callback_url'] = callback_url
+        context['userName']=user.userName
+        return render(request, 'paymenthandler.html', context=context)
 
+@csrf_exempt
+def paymenthandler(request,price):
+    
+    # only accept POST request.
+    user=User.objects.get(userEmail=request.session['userEmail'])
+    if request.method == "POST":
+        try:
+              
+            # get the required parameters from post request.
+            payment_id = request.POST.get('razorpay_payment_id', '')
+            razorpay_order_id = request.POST.get('razorpay_order_id', '')
+            signature = request.POST.get('razorpay_signature', '')
+            params_dict = {
+                'razorpay_order_id': razorpay_order_id,
+                'razorpay_payment_id': payment_id,
+                'razorpay_signature': signature
+            }
+ 
+            # verify the payment signature.
+            result = razorpay_client.utility.verify_payment_signature(
+                params_dict)
+            print(price) 
+            if result is None:
+                amount=price*100
+                try:
+ 
+                    # capture the payemt
+                    razorpay_client.payment.capture(payment_id, amount)
+                    sale=Sales(saleUser=user,saleAddress=user.userAddress,status="Pending",salePrice=price,paymentMode="Online Payment",razorpay_order_id=razorpay_order_id,razorpay_payment_id=payment_id,razorpay_signature=signature)
+                    sale.save()
+                    for product in user.userCart.all():
+                        sale.saleProducts.add(product)
+                        user.userCart.remove(product)
+                        product.productQuantity-=1
+ 
+                    # render success page on successful caputre of payment
+                    return render(request, 'success.html',{'userName':user.userName})
+                except:
+ 
+                    # if there is an error while capturing payment.
+                    return render(request, 'failed.html',{'userName':user.userName})
+            else:
+ 
+                # if signature verification fails.
+                return render(request, 'failed.html',{'userName':user.userName})
+        except:
+ 
+            # if we don't find the required parameters in POST data
+            return HttpResponseBadRequest()
+    else:
+       # if other than POST request is made.
+        return HttpResponseBadRequest()

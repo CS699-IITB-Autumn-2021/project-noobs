@@ -92,13 +92,20 @@ STATUS_CHOICES = [
     ("Pending", "Pending"),
     ("Delivered", "Delivered"),
 ]
-
+MODE_CHOICES = [
+    ("Cash On Delivery", "Cash On Delivery"),
+    ("Online Payment", "Online Payment"),
+]
 class Sales(models.Model):
+	saleProducts=models.ManyToManyField(Product,related_name="saleProducts")
 	saleUser=models.ForeignKey(User,on_delete=models.CASCADE)
-	saleProduct=models.ForeignKey(Product,on_delete=models.CASCADE)
 	saleAddedDate = models.DateTimeField(auto_now_add=True)
 	saleAddress = models.CharField(max_length=200)
 	status = models.CharField(max_length=50, choices=STATUS_CHOICES)
 	salePrice = models.IntegerField()
+	paymentMode = models.CharField(max_length=50, choices=MODE_CHOICES)
+	razorpay_order_id = models.CharField(max_length=200,default='None')
+	razorpay_payment_id = models.CharField(max_length=200,default='None')
+	razorpay_signature =  models.CharField(max_length=500,default='None')
 	def __str__(self):
-		return f'{self.saleUser} - {self.saleProduct}'
+		return f'{self.saleUser}'
