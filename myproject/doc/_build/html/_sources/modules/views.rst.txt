@@ -1,0 +1,4 @@
+views
+======
+.. automodule:: user_app.views
+    :members:

@@ -16,7 +16,7 @@ def index(request):
      This method controls the index page.
 
      :param name: request
-     :type request: Implicit.
+     :type request: Implicit
      :returns:  render -- index.html page according to if else conditions.
 
     .. note::
@@ -72,7 +72,7 @@ def register(request):
      This method takes to registeration page.
 
      :param name: request
-     :type request: Implicit.
+     :type request: Implicit
      :returns:  render -- index.html with successful registeration message.
 
     .. note::
@@ -131,13 +131,14 @@ def register(request):
 
 def loginUser(request):
     """
-    This method takes to login page.
-    :param name: request
-    :type request: Implicit.
-    :returns:  render -- index.html page according to if else conditions.
+     This method controls the index page.
+
+     :param name: request
+     :type request: Implicit
+     :returns:  render -- index.html page according to if else conditions.
 
     .. note::
-    This method shows viewed products also if successful login.
+       This method gets details of products from the **database**.
     """
     newProducts=[]
     viewedProducts=[]
@@ -196,12 +197,14 @@ def loginUser(request):
 
 def logout(request):
     """
-    This method controls the logout page.
-    :param name: request
-    :type request: Implicit.
-    :returns:  render -- index.html page redirection.
+     This method deletes the current session of user.
+
+     :param name: request
+     :type request: Implicit
+     :returns:  render -- index.html page after logging out.
+
     .. note::
-    This method ends the current session.
+       This method doesnt use the **database**.
     """
     del request.session['userName']
     del request.session['userEmail']
@@ -209,16 +212,16 @@ def logout(request):
 
 def product(request,product_id):
     """
-    This method controls the product page.
-    :param name: request.
-    :type request: Implicit.
-    :param name: product_id.
-    :type product_id: Integer.
+     This method controls the product page.
 
-    :returns:  render -- product.html page according to if else conditions.
+     :param name: request
+     :type request: Implicit
+     :parm name: product_id
+     :type product_id: Integer
+     :returns:  render -- index.html page according to if else conditions.
 
     .. note::
-    This method gets details of products from the **database**.
+       This method gets details of products from the **database**.
     """
     categories=Category.objects.all()
     product=Product.objects.get(id=product_id)
@@ -235,14 +238,16 @@ def product(request,product_id):
 
 def getProductsCategory(request,selCategory):
     """
-    This method controls the product_category page.
-    :param name: request.
-    :type request: Implicit.
-    :param name: selCategory.
-    :type selCategory: String.
-    :returns:  render -- product_category.html page according to if else conditions.
+     This method controls the product_category page.
+
+     :param name: request
+     :type request: Implicit
+     :param name: selCategory
+     :type selCategory: String
+     :returns:  render -- product_category.html page according to if else conditions.
+
     .. note::
-    This method gets details of products from the **database**.
+       This method gets details of products from the **database**.
     """
     categories=Category.objects.all()
     products=Product.objects.filter(productCategory=Category.objects.get(categoryName=selCategory))
@@ -254,12 +259,14 @@ def getProductsCategory(request,selCategory):
 
 def search(request):
     """
-    This method controls the product_search page.
-    :param name: request.
-    :type request: Implicit.
-    :returns:  render -- product_search.html page.
+     This method controls the search page.
+
+     :param name: request
+     :type request: Implicit
+     :returns:  render -- search.html page according to if else conditions.
+
     .. note::
-    This method gets details of products from the **database**.
+       This method gets details of products from the **database**.
     """
     searchString=request.GET['search']
     categories=Category.objects.all()
@@ -272,12 +279,14 @@ def search(request):
 
 def myProducts(request):
     """
-    This method controls the my_products page.
-    :param name: request.
-    :type request: Implicit.
-    :returns:  render --my_products.html page.
+     This method controls the my_products page.
+
+     :param name: request
+     :type request: Implicit
+     :returns:  render -- my_products.html page according to if else conditions.
+
     .. note::
-    This method gets details of user,products from the **database**.
+       This method gets details of products from the **database**.
     """
     user=User.objects.get(userEmail=request.session['userEmail'])
     categories=Category.objects.all()
@@ -289,16 +298,14 @@ def myProducts(request):
 
 def myCart(request):
     """
-    This method controls the my_cart page.
+     This method controls the my_cart page.
 
+     :param name: request
+     :type request: Implicit
+     :returns:  render -- mycart.html page according to if else conditions.
 
-    :param name: request.
-    :type request: Implicit.
-
-
-    :returns:  render --my_cart.html page.
     .. note::
-    This method gets details of products from the **database**.
+       This method gets details of products from the **database**.
     """
     user=User.objects.get(userEmail=request.session['userEmail'])
     categories=Category.objects.all()
@@ -312,17 +319,16 @@ def myCart(request):
 
 def savefav(request,product_id):
     """
-    This method saves the favorite products.
+     This method controls the index page.
 
-
-    :param name: request.
-    :type request: Implicit.
-    :param name: product_id.
-    :type product_id: Integer.
-    :returns:  redirect method
+     :param name: request
+     :type request: Implicit
+     :param name: product_id
+     :type product_id: Integer
+     :returns:  redirect -- product method.
 
     .. note::
-    This method gets details of products from the **database**.
+       This method gets details of products from the **database**.
     """
     product=Product.objects.get(id=product_id)
     user=User.objects.get(userEmail=request.session['userEmail'])
@@ -331,16 +337,16 @@ def savefav(request,product_id):
 
 def removefav(request,product_id):
     """
-    This method removes from  the favorite products.
+     This method removes products from wishlist.
 
+     :param name: request
+     :type request: Implicit
+     :param name: product_id
+     :type product_id: Integer
+     :returns:  redirect -- product method.
 
-    :param name: request.
-    :type request: Implicit.
-    :param name: product_id.
-    :type product_id: Integer.
-    :returns:  redirect method
     .. note::
-    This method gets details of products from the **database**.
+       This method gets details of products from the **database**.
     """
     product=Product.objects.get(id=product_id)
     user=User.objects.get(userEmail=request.session['userEmail'])
@@ -349,17 +355,16 @@ def removefav(request,product_id):
 
 def addToCart(request,product_id):
     """
-    This method adds item to Cart..
+     This method adds your product to cart which you are buying.
 
-
-    :param name: request.
-    :type request: Implicit.
-    :param name: product_id.
-    :type product_id: Integer.
-    :returns:  redirect method
+     :param name: request
+     :type request: Implicit
+     :param name: product_id
+     :type product_id: Integer
+     :returns:  redirect -- product method.
 
     .. note::
-    This method gets details ofproducts from the **database**.
+       This method gets details of products from the **database**.
     """
     product=Product.objects.get(id=product_id)
     user=User.objects.get(userEmail=request.session['userEmail'])
@@ -369,17 +374,15 @@ def addToCart(request,product_id):
 
 def buyedProducts(request):
     """
-    This method for showing buyed or purchased products.
+     This method shows you buyed products.
 
-
-    :param name: request.
-    :type request: Implicit.
-
-
-    :returns:  render-- buyed_products.html page
+     :param name: request
+     :type request: Implicit
+     
+     :returns:  render-- buyed_product.html page.
 
     .. note::
-    This method gets details of products from the **database**.
+       This method gets details of products from the **database**.
     """
     user=User.objects.get(userEmail=request.session['userEmail'])
     sales=Sales.objects.filter(saleUser=user).order_by('-saleAddedDate')
@@ -389,18 +392,16 @@ def buyedProducts(request):
 
 def removeCart(request,product_id):
     """
-    This method removes product from  the Cart.
+     This method removes product from the cart.
 
-
-    :param name: request.
-    :type request: Implicit.
-    :param name: product_id.
-    :type product_id: Integer.
-
-    :returns:  redirect method
+     :param name: request
+     :type request: Implicit
+     :param name: product_id
+     :type product_id: Integer
+     :returns:  redirect -- my_cart method.
 
     .. note::
-    This method gets details of user,products from the **database**.
+       This method gets details of products from the **database**.
     """
     product=Product.objects.get(id=product_id)
     user=User.objects.get(userEmail=request.session['userEmail'])
@@ -409,18 +410,18 @@ def removeCart(request,product_id):
 
 def give_review(request,product_id):
     """
-    This method removes from  the favorite products.
+    This method is used to give review to products.
 
 
-    :param name: request.
-    :type request: Implicit.
-    :param name: product_id.
-    :type product_id: Integer.
+    :param name: request
+    :type request: Implicit
+    :param name: product_id
+    :type product_id: Integer
 
-    :returns:  redirect method
+    :returns:  redirect method product 
 
     .. note::
-    This method used to give stars to pruducts.
+       This method used to give stars to pruducts.
     """
     title=request.GET['title']
     desc=request.GET['description']
@@ -441,6 +442,18 @@ razorpay_client = razorpay.Client(
     auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
 
 def checkout(request,price):
+    """
+     This method controls the paymenthandler page.
+
+     :param name: request
+     :type request: Implicit
+     :param name: price
+     :type price: Implicit
+     :returns:  renders paymenthandler.html.
+
+    .. note::
+       This method gets details of products from the **database**.
+    """
     user=User.objects.get(userEmail=request.session['userEmail'])
     address=request.POST['address']
     user.userAddress=address
@@ -473,6 +486,18 @@ def checkout(request,price):
 
 @csrf_exempt
 def paymenthandler(request,price):
+    """
+     This method controls the payment.
+
+     :param name: request
+     :type request: Implicit
+     :param name: price
+     :type price: Implicit
+     :returns:  redirect -- product method.
+
+    .. note::
+       This method is taken from payment gateway .
+    """
     
     # only accept POST request.
     user=User.objects.get(userEmail=request.session['userEmail'])

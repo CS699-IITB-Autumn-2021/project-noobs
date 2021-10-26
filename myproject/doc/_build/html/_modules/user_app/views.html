@@ -1,0 +1,633 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>user_app.views &#8212; NOOBSKART yes documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">NOOBSKART yes documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">user_app.views</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for user_app.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span><span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Product</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Category</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Review</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Sales</span>
+<span class="kn">import</span> <span class="nn">razorpay</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.views.decorators.csrf</span> <span class="kn">import</span> <span class="n">csrf_exempt</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseBadRequest</span>
+
+<span class="c1"># Create your views here.</span>
+<div class="viewcode-block" id="index"><a class="viewcode-back" href="../../modules/views.html#user_app.views.index">[docs]</a><span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method controls the index page.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :returns:  render -- index.html page according to if else conditions.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">newProducts</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">viewedProducts</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">bestProducts</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">buyedProducts</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">allProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-productAddedDate&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">allProducts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">newProducts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+
+    <span class="n">allProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-productViewed&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">allProducts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">viewedProducts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="n">allProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-productDiscount&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">allProducts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">bestProducts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="n">allProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-productBuyed&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">allProducts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">buyedProducts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;userName&#39;</span><span class="p">):</span>
+        <span class="n">userName</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userName&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;index.html&#39;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">userName</span><span class="p">,</span><span class="s1">&#39;bestProducts&#39;</span><span class="p">:</span><span class="n">bestProducts</span><span class="p">,</span><span class="s1">&#39;newProducts&#39;</span><span class="p">:</span><span class="n">newProducts</span><span class="p">,</span><span class="s1">&#39;viewedProducts&#39;</span><span class="p">:</span><span class="n">viewedProducts</span><span class="p">,</span><span class="s1">&#39;buyedProducts&#39;</span><span class="p">:</span><span class="n">buyedProducts</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;index.html&#39;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;newProducts&#39;</span><span class="p">:</span><span class="n">newProducts</span><span class="p">,</span><span class="s1">&#39;bestProducts&#39;</span><span class="p">:</span><span class="n">bestProducts</span><span class="p">,</span><span class="s1">&#39;viewedProducts&#39;</span><span class="p">:</span><span class="n">viewedProducts</span><span class="p">,</span><span class="s1">&#39;buyedProducts&#39;</span><span class="p">:</span><span class="n">buyedProducts</span><span class="p">})</span></div>
+
+
+
+<div class="viewcode-block" id="register"><a class="viewcode-back" href="../../modules/views.html#user_app.views.register">[docs]</a><span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method takes to registeration page.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :returns:  render -- index.html with successful registeration message.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       We are using **post** method and some conditions like not null .</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">newProducts</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">viewedProducts</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">bestProducts</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">buyedProducts</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">allProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-productAddedDate&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">allProducts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">newProducts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+
+    <span class="n">allProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-productViewed&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">allProducts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">viewedProducts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="n">allProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-productDiscount&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">allProducts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">bestProducts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="n">allProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-productBuyed&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">allProducts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">buyedProducts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="o">==</span><span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">newUser</span><span class="o">=</span><span class="n">User</span><span class="p">(</span>
+        <span class="n">userName</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;uname&#39;</span><span class="p">],</span>
+        <span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;uemail&#39;</span><span class="p">],</span>
+        <span class="n">userPassword</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;upass&#39;</span><span class="p">],</span>
+        <span class="n">userContact</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;ucontact&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">newUser</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">categories</span><span class="o">=</span><span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;index.html&#39;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;message&#39;</span><span class="p">:</span><span class="s1">&#39;Registered Successfully&#39;</span><span class="p">,</span><span class="s1">&#39;bestProducts&#39;</span><span class="p">:</span><span class="n">bestProducts</span><span class="p">,</span><span class="s1">&#39;newProducts&#39;</span><span class="p">:</span><span class="n">newProducts</span><span class="p">,</span><span class="s1">&#39;viewedProducts&#39;</span><span class="p">:</span><span class="n">viewedProducts</span><span class="p">,</span><span class="s1">&#39;buyedProducts&#39;</span><span class="p">:</span><span class="n">buyedProducts</span><span class="p">})</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;index.html&#39;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;bestProducts&#39;</span><span class="p">:</span><span class="n">bestProducts</span><span class="p">,</span><span class="s1">&#39;newProducts&#39;</span><span class="p">:</span><span class="n">newProducts</span><span class="p">,</span><span class="s1">&#39;viewedProducts&#39;</span><span class="p">:</span><span class="n">viewedProducts</span><span class="p">,</span><span class="s1">&#39;buyedProducts&#39;</span><span class="p">:</span><span class="n">buyedProducts</span><span class="p">})</span></div>
+   
+
+<div class="viewcode-block" id="loginUser"><a class="viewcode-back" href="../../modules/views.html#user_app.views.loginUser">[docs]</a><span class="k">def</span> <span class="nf">loginUser</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method controls the index page.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :returns:  render -- index.html page according to if else conditions.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">newProducts</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">viewedProducts</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">bestProducts</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">buyedProducts</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">allProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-productAddedDate&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">allProducts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">newProducts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+
+    <span class="n">allProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-productViewed&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">allProducts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">viewedProducts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="n">allProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-productDiscount&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">allProducts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">bestProducts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="n">allProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-productBuyed&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">allProducts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">buyedProducts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Helloooo&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="o">==</span><span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Helloooo&quot;</span><span class="p">)</span>
+        <span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;uemail&#39;</span><span class="p">]</span>
+        <span class="n">userPassword</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;upass&#39;</span><span class="p">]</span>
+        <span class="n">post</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">userEmail</span><span class="o">=</span><span class="n">userEmail</span><span class="p">,</span><span class="n">userPassword</span><span class="o">=</span><span class="n">userPassword</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">post</span><span class="p">:</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">userEmail</span>
+            <span class="k">for</span> <span class="n">us</span> <span class="ow">in</span> <span class="n">post</span><span class="p">:</span>         
+                <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">us</span><span class="o">.</span><span class="n">userName</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;index.html&#39;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;message&#39;</span><span class="p">:</span><span class="s1">&#39;Incorrect Password&#39;</span><span class="p">,</span><span class="s1">&#39;bestProducts&#39;</span><span class="p">:</span><span class="n">bestProducts</span><span class="p">,</span><span class="s1">&#39;newProducts&#39;</span><span class="p">:</span><span class="n">newProducts</span><span class="p">,</span><span class="s1">&#39;viewedProducts&#39;</span><span class="p">:</span><span class="n">viewedProducts</span><span class="p">,</span><span class="s1">&#39;buyedProducts&#39;</span><span class="p">:</span><span class="n">buyedProducts</span><span class="p">})</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;userName&#39;</span><span class="p">):</span>
+        <span class="n">userName</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userName&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;index.html&#39;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">userName</span><span class="p">,</span><span class="s1">&#39;bestProducts&#39;</span><span class="p">:</span><span class="n">bestProducts</span><span class="p">,</span><span class="s1">&#39;newProducts&#39;</span><span class="p">:</span><span class="n">newProducts</span><span class="p">,</span><span class="s1">&#39;viewedProducts&#39;</span><span class="p">:</span><span class="n">viewedProducts</span><span class="p">,</span><span class="s1">&#39;buyedProducts&#39;</span><span class="p">:</span><span class="n">buyedProducts</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;index.html&#39;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;bestProducts&#39;</span><span class="p">:</span><span class="n">bestProducts</span><span class="p">,</span><span class="s1">&#39;newProducts&#39;</span><span class="p">:</span><span class="n">newProducts</span><span class="p">,</span><span class="s1">&#39;viewedProducts&#39;</span><span class="p">:</span><span class="n">viewedProducts</span><span class="p">,</span><span class="s1">&#39;buyedProducts&#39;</span><span class="p">:</span><span class="n">buyedProducts</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="logout"><a class="viewcode-back" href="../../modules/views.html#user_app.views.logout">[docs]</a><span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method deletes the current session of user.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :returns:  render -- index.html page after logging out.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method doesnt use the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">del</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userName&#39;</span><span class="p">]</span>
+    <span class="k">del</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="product"><a class="viewcode-back" href="../../modules/views.html#user_app.views.product">[docs]</a><span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">product_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method controls the product page.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :parm name: product_id</span>
+<span class="sd">     :type product_id: Integer</span>
+<span class="sd">     :returns:  render -- index.html page according to if else conditions.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">product</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">product_id</span><span class="p">)</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">productViewed</span><span class="o">=</span><span class="n">product</span><span class="o">.</span><span class="n">productViewed</span><span class="o">+</span><span class="mi">1</span>
+    <span class="n">reviews</span><span class="o">=</span><span class="n">Review</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">reviewProduct</span><span class="o">=</span><span class="n">product</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-reviewAddedDate&#39;</span><span class="p">)</span>
+    <span class="n">sameProducts</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">productCategory</span><span class="o">=</span><span class="n">product</span><span class="o">.</span><span class="n">productCategory</span><span class="p">)</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;userName&#39;</span><span class="p">):</span>
+        <span class="n">userName</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userName&#39;</span><span class="p">]</span>
+        <span class="n">user</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s2">&quot;product.html&quot;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;product&#39;</span><span class="p">:</span><span class="n">product</span><span class="p">,</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">userName</span><span class="p">,</span><span class="s1">&#39;myProducts&#39;</span><span class="p">:</span><span class="n">user</span><span class="o">.</span><span class="n">userProducts</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span><span class="s1">&#39;sameProducts&#39;</span><span class="p">:</span><span class="n">sameProducts</span><span class="p">,</span><span class="s1">&#39;reviews&#39;</span><span class="p">:</span><span class="n">reviews</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s2">&quot;product.html&quot;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;product&#39;</span><span class="p">:</span><span class="n">product</span><span class="p">,</span><span class="s1">&#39;sameProducts&#39;</span><span class="p">:</span><span class="n">sameProducts</span><span class="p">,</span><span class="s1">&#39;reviews&#39;</span><span class="p">:</span><span class="n">reviews</span><span class="p">})</span></div>
+    
+
+<div class="viewcode-block" id="getProductsCategory"><a class="viewcode-back" href="../../modules/views.html#user_app.views.getProductsCategory">[docs]</a><span class="k">def</span> <span class="nf">getProductsCategory</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">selCategory</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method controls the product_category page.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :param name: selCategory</span>
+<span class="sd">     :type selCategory: String</span>
+<span class="sd">     :returns:  render -- product_category.html page according to if else conditions.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">products</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">productCategory</span><span class="o">=</span><span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">categoryName</span><span class="o">=</span><span class="n">selCategory</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">products</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;userName&#39;</span><span class="p">):</span>
+        <span class="n">userName</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userName&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s2">&quot;product_category.html&quot;</span><span class="p">,{</span><span class="s1">&#39;products&#39;</span><span class="p">:</span><span class="n">products</span><span class="p">,</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;selCategory&#39;</span><span class="p">:</span><span class="n">selCategory</span><span class="p">,</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">userName</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s2">&quot;product_category.html&quot;</span><span class="p">,{</span><span class="s1">&#39;products&#39;</span><span class="p">:</span><span class="n">products</span><span class="p">,</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;selCategory&#39;</span><span class="p">:</span><span class="n">selCategory</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="search"><a class="viewcode-back" href="../../modules/views.html#user_app.views.search">[docs]</a><span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method controls the search page.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :returns:  render -- search.html page according to if else conditions.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">searchString</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s1">&#39;search&#39;</span><span class="p">]</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">products</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">productName__icontains</span><span class="o">=</span><span class="n">searchString</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;userName&#39;</span><span class="p">):</span>
+        <span class="n">userName</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userName&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s2">&quot;product_search.html&quot;</span><span class="p">,{</span><span class="s1">&#39;products&#39;</span><span class="p">:</span><span class="n">products</span><span class="p">,</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;searchString&#39;</span><span class="p">:</span><span class="n">searchString</span><span class="p">,</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">userName</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s2">&quot;product_search.html&quot;</span><span class="p">,{</span><span class="s1">&#39;products&#39;</span><span class="p">:</span><span class="n">products</span><span class="p">,</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;searchString&#39;</span><span class="p">:</span><span class="n">searchString</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="myProducts"><a class="viewcode-back" href="../../modules/views.html#user_app.views.myProducts">[docs]</a><span class="k">def</span> <span class="nf">myProducts</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method controls the my_products page.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :returns:  render -- my_products.html page according to if else conditions.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">])</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;userName&#39;</span><span class="p">):</span>
+        <span class="n">userName</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userName&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;my_products.html&#39;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">userName</span><span class="p">,</span><span class="s1">&#39;products&#39;</span><span class="p">:</span><span class="n">user</span><span class="o">.</span><span class="n">userProducts</span><span class="o">.</span><span class="n">all</span><span class="p">()})</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;my_products.html&#39;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;products&#39;</span><span class="p">:</span><span class="n">user</span><span class="o">.</span><span class="n">userProducts</span><span class="o">.</span><span class="n">all</span><span class="p">()})</span></div>
+
+
+<div class="viewcode-block" id="myCart"><a class="viewcode-back" href="../../modules/views.html#user_app.views.myCart">[docs]</a><span class="k">def</span> <span class="nf">myCart</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method controls the my_cart page.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :returns:  render -- mycart.html page according to if else conditions.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">])</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">price</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">user</span><span class="o">.</span><span class="n">userCart</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="n">price</span><span class="o">+=</span><span class="n">product</span><span class="o">.</span><span class="n">productDiscountedPrice</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;userName&#39;</span><span class="p">):</span>
+        <span class="n">userName</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userName&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;my_cart.html&#39;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">userName</span><span class="p">,</span><span class="s1">&#39;products&#39;</span><span class="p">:</span><span class="n">user</span><span class="o">.</span><span class="n">userCart</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span><span class="s1">&#39;userAddress&#39;</span><span class="p">:</span><span class="n">user</span><span class="o">.</span><span class="n">userAddress</span><span class="p">,</span><span class="s1">&#39;totalPrice&#39;</span><span class="p">:</span><span class="n">price</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;my_cart.html&#39;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;products&#39;</span><span class="p">:</span><span class="n">user</span><span class="o">.</span><span class="n">userCart</span><span class="o">.</span><span class="n">all</span><span class="p">()})</span></div>
+
+<div class="viewcode-block" id="savefav"><a class="viewcode-back" href="../../modules/views.html#user_app.views.savefav">[docs]</a><span class="k">def</span> <span class="nf">savefav</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">product_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method controls the index page.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :param name: product_id</span>
+<span class="sd">     :type product_id: Integer</span>
+<span class="sd">     :returns:  redirect -- product method.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">product</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">product_id</span><span class="p">)</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">])</span>
+    <span class="n">user</span><span class="o">.</span><span class="n">userProducts</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;product&#39;</span><span class="p">,</span><span class="n">product_id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="removefav"><a class="viewcode-back" href="../../modules/views.html#user_app.views.removefav">[docs]</a><span class="k">def</span> <span class="nf">removefav</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">product_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method removes products from wishlist.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :param name: product_id</span>
+<span class="sd">     :type product_id: Integer</span>
+<span class="sd">     :returns:  redirect -- product method.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">product</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">product_id</span><span class="p">)</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">])</span>
+    <span class="n">user</span><span class="o">.</span><span class="n">userProducts</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;product&#39;</span><span class="p">,</span><span class="n">product_id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="addToCart"><a class="viewcode-back" href="../../modules/views.html#user_app.views.addToCart">[docs]</a><span class="k">def</span> <span class="nf">addToCart</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">product_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method adds your product to cart which you are buying.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :param name: product_id</span>
+<span class="sd">     :type product_id: Integer</span>
+<span class="sd">     :returns:  redirect -- product method.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">product</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">product_id</span><span class="p">)</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">])</span>
+    <span class="n">user</span><span class="o">.</span><span class="n">userCart</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;product&#39;</span><span class="p">,</span><span class="n">product_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="buyedProducts"><a class="viewcode-back" href="../../modules/views.html#user_app.views.buyedProducts">[docs]</a><span class="k">def</span> <span class="nf">buyedProducts</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method shows you buyed products.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     </span>
+<span class="sd">     :returns:  render-- buyed_product.html page.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">])</span>
+    <span class="n">sales</span><span class="o">=</span><span class="n">Sales</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">saleUser</span><span class="o">=</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-saleAddedDate&#39;</span><span class="p">)</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sales</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;buyed_products.html&#39;</span><span class="p">,{</span><span class="s1">&#39;categories&#39;</span><span class="p">:</span><span class="n">categories</span><span class="p">,</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">user</span><span class="o">.</span><span class="n">userName</span><span class="p">,</span><span class="s1">&#39;sales&#39;</span><span class="p">:</span><span class="n">sales</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="removeCart"><a class="viewcode-back" href="../../modules/views.html#user_app.views.removeCart">[docs]</a><span class="k">def</span> <span class="nf">removeCart</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">product_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method removes product from the cart.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :param name: product_id</span>
+<span class="sd">     :type product_id: Integer</span>
+<span class="sd">     :returns:  redirect -- my_cart method.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">product</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">product_id</span><span class="p">)</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">])</span>
+    <span class="n">user</span><span class="o">.</span><span class="n">userCart</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;myCart&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="give_review"><a class="viewcode-back" href="../../modules/views.html#user_app.views.give_review">[docs]</a><span class="k">def</span> <span class="nf">give_review</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">product_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This method is used to give review to products.</span>
+
+
+<span class="sd">    :param name: request</span>
+<span class="sd">    :type request: Implicit</span>
+<span class="sd">    :param name: product_id</span>
+<span class="sd">    :type product_id: Integer</span>
+
+<span class="sd">    :returns:  redirect method product </span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method used to give stars to pruducts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">title</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+    <span class="n">desc</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
+    <span class="n">star</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s1">&#39;star&#39;</span><span class="p">])</span>
+    <span class="n">rating</span><span class="o">=</span><span class="n">star</span><span class="o">*</span><span class="mi">21</span>
+    <span class="n">product</span><span class="o">=</span><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">product_id</span><span class="p">)</span>
+    <span class="n">preReview</span><span class="o">=</span><span class="n">product</span><span class="o">.</span><span class="n">avgReview</span><span class="o">*</span><span class="n">product</span><span class="o">.</span><span class="n">noOfReviews</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">noOfReviews</span><span class="o">=</span><span class="n">product</span><span class="o">.</span><span class="n">noOfReviews</span><span class="o">+</span><span class="mi">1</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">avgReview</span><span class="o">=</span><span class="p">(</span><span class="n">preReview</span><span class="o">+</span><span class="n">rating</span><span class="p">)</span><span class="o">/</span><span class="n">product</span><span class="o">.</span><span class="n">noOfReviews</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">])</span>
+    <span class="n">review</span><span class="o">=</span><span class="n">Review</span><span class="p">(</span><span class="n">reviewTitle</span><span class="o">=</span><span class="n">title</span><span class="p">,</span><span class="n">reviewDesc</span><span class="o">=</span><span class="n">desc</span><span class="p">,</span><span class="n">reviewRating</span><span class="o">=</span><span class="n">rating</span><span class="p">,</span><span class="n">reviewUser</span><span class="o">=</span><span class="n">user</span><span class="p">,</span><span class="n">reviewProduct</span><span class="o">=</span><span class="n">product</span><span class="p">)</span>
+    <span class="n">review</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;product&#39;</span><span class="p">,</span><span class="n">product_id</span><span class="p">)</span></div>
+
+
+<span class="n">razorpay_client</span> <span class="o">=</span> <span class="n">razorpay</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span>
+    <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">RAZOR_KEY_ID</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">RAZOR_KEY_SECRET</span><span class="p">))</span>
+
+<div class="viewcode-block" id="checkout"><a class="viewcode-back" href="../../modules/views.html#user_app.views.checkout">[docs]</a><span class="k">def</span> <span class="nf">checkout</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">price</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method controls the paymenthandler page.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :param name: price</span>
+<span class="sd">     :type price: Implicit</span>
+<span class="sd">     :returns:  renders paymenthandler.html.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method gets details of products from the **database**.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">])</span>
+    <span class="n">address</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;address&#39;</span><span class="p">]</span>
+    <span class="n">user</span><span class="o">.</span><span class="n">userAddress</span><span class="o">=</span><span class="n">address</span>
+    <span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s2">&quot;paymentmode&quot;</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mode</span><span class="o">==</span><span class="s2">&quot;Cash On Delivery&quot;</span><span class="p">:</span>
+
+        <span class="n">sale</span><span class="o">=</span><span class="n">Sales</span><span class="p">(</span><span class="n">saleUser</span><span class="o">=</span><span class="n">user</span><span class="p">,</span><span class="n">saleAddress</span><span class="o">=</span><span class="n">address</span><span class="p">,</span><span class="n">status</span><span class="o">=</span><span class="s2">&quot;Pending&quot;</span><span class="p">,</span><span class="n">salePrice</span><span class="o">=</span><span class="n">price</span><span class="p">,</span><span class="n">paymentMode</span><span class="o">=</span><span class="s2">&quot;Cash On Delivery&quot;</span><span class="p">)</span>
+        <span class="n">sale</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">user</span><span class="o">.</span><span class="n">userCart</span><span class="o">.</span><span class="n">all</span><span class="p">():</span> 
+            <span class="n">sale</span><span class="o">.</span><span class="n">saleProducts</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">user</span><span class="o">.</span><span class="n">userCart</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">-=</span><span class="mi">1</span>
+            <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;success.html&#39;</span><span class="p">,{</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">user</span><span class="o">.</span><span class="n">userName</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">currency</span> <span class="o">=</span> <span class="s1">&#39;INR&#39;</span>
+        <span class="n">razorpay_order</span> <span class="o">=</span> <span class="n">razorpay_client</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">amount</span><span class="o">=</span><span class="n">price</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="n">currency</span><span class="o">=</span><span class="n">currency</span><span class="p">,</span><span class="n">payment_capture</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">))</span>
+        <span class="n">razorpay_order_id</span> <span class="o">=</span> <span class="n">razorpay_order</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="n">callback_url</span> <span class="o">=</span> <span class="s1">&#39;paymenthandler/&#39;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;razorpay_order_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">razorpay_order_id</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;razorpay_merchant_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">RAZOR_KEY_ID</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;razorpay_amount&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">price</span><span class="o">*</span><span class="mi">100</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;currency&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">currency</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;callback_url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">callback_url</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;userName&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">userName</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;paymenthandler.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="paymenthandler"><a class="viewcode-back" href="../../modules/views.html#user_app.views.paymenthandler">[docs]</a><span class="nd">@csrf_exempt</span>
+<span class="k">def</span> <span class="nf">paymenthandler</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">price</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     This method controls the payment.</span>
+
+<span class="sd">     :param name: request</span>
+<span class="sd">     :type request: Implicit</span>
+<span class="sd">     :param name: price</span>
+<span class="sd">     :type price: Implicit</span>
+<span class="sd">     :returns:  redirect -- product method.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       This method is taken from payment gateway .</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># only accept POST request.</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userEmail</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;userEmail&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+              
+            <span class="c1"># get the required parameters from post request.</span>
+            <span class="n">payment_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;razorpay_payment_id&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">razorpay_order_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;razorpay_order_id&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">signature</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;razorpay_signature&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">params_dict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;razorpay_order_id&#39;</span><span class="p">:</span> <span class="n">razorpay_order_id</span><span class="p">,</span>
+                <span class="s1">&#39;razorpay_payment_id&#39;</span><span class="p">:</span> <span class="n">payment_id</span><span class="p">,</span>
+                <span class="s1">&#39;razorpay_signature&#39;</span><span class="p">:</span> <span class="n">signature</span>
+            <span class="p">}</span>
+ 
+            <span class="c1"># verify the payment signature.</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">razorpay_client</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">verify_payment_signature</span><span class="p">(</span>
+                <span class="n">params_dict</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">price</span><span class="p">)</span> 
+            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">amount</span><span class="o">=</span><span class="n">price</span><span class="o">*</span><span class="mi">100</span>
+                <span class="k">try</span><span class="p">:</span>
+ 
+                    <span class="c1"># capture the payemt</span>
+                    <span class="n">razorpay_client</span><span class="o">.</span><span class="n">payment</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span><span class="n">payment_id</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+                    <span class="n">sale</span><span class="o">=</span><span class="n">Sales</span><span class="p">(</span><span class="n">saleUser</span><span class="o">=</span><span class="n">user</span><span class="p">,</span><span class="n">saleAddress</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">userAddress</span><span class="p">,</span><span class="n">status</span><span class="o">=</span><span class="s2">&quot;Pending&quot;</span><span class="p">,</span><span class="n">salePrice</span><span class="o">=</span><span class="n">price</span><span class="p">,</span><span class="n">paymentMode</span><span class="o">=</span><span class="s2">&quot;Online Payment&quot;</span><span class="p">,</span><span class="n">razorpay_order_id</span><span class="o">=</span><span class="n">razorpay_order_id</span><span class="p">,</span><span class="n">razorpay_payment_id</span><span class="o">=</span><span class="n">payment_id</span><span class="p">,</span><span class="n">razorpay_signature</span><span class="o">=</span><span class="n">signature</span><span class="p">)</span>
+                    <span class="n">sale</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">user</span><span class="o">.</span><span class="n">userCart</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+                        <span class="n">sale</span><span class="o">.</span><span class="n">saleProducts</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+                        <span class="n">user</span><span class="o">.</span><span class="n">userCart</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+                        <span class="n">product</span><span class="o">.</span><span class="n">productQuantity</span><span class="o">-=</span><span class="mi">1</span>
+                        <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+ 
+                    <span class="c1"># render success page on successful caputre of payment</span>
+                    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;success.html&#39;</span><span class="p">,{</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">user</span><span class="o">.</span><span class="n">userName</span><span class="p">})</span>
+                <span class="k">except</span><span class="p">:</span>
+ 
+                    <span class="c1"># if there is an error while capturing payment.</span>
+                    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;failed.html&#39;</span><span class="p">,{</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">user</span><span class="o">.</span><span class="n">userName</span><span class="p">})</span>
+            <span class="k">else</span><span class="p">:</span>
+ 
+                <span class="c1"># if signature verification fails.</span>
+                <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;failed.html&#39;</span><span class="p">,{</span><span class="s1">&#39;userName&#39;</span><span class="p">:</span><span class="n">user</span><span class="o">.</span><span class="n">userName</span><span class="p">})</span>
+        <span class="k">except</span><span class="p">:</span>
+ 
+            <span class="c1"># if we don&#39;t find the required parameters in POST data</span>
+            <span class="k">return</span> <span class="n">HttpResponseBadRequest</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+       <span class="c1"># if other than POST request is made.</span>
+        <span class="k">return</span> <span class="n">HttpResponseBadRequest</span><span class="p">()</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">NOOBSKART yes documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">user_app.views</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, prince.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>
