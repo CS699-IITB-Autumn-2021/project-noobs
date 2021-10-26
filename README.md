@@ -1,3 +1,46 @@
+<<<<<<< HEAD
+TEAM NOOBS
+Problem Statement or Motivation To design an E-Commerce Grocery website for local shop owners so that they can have an online presence and increase their sales. This initiative for local shop owners seems quite crucial as the entire shopping arena is moving to an online world and also physically visiting shops is not very practical in these Covid times.
+
+Sell your product/service (One sentence). Are Customers not visiting your shop ? Why not go where they actually are, the Internet.
+
+List of Features
+
+Users can login to the website and purchase Grocery Items.
+Users can Register and Login themselves into the website, Add items to cart and even add them to Favourites.
+Users can provide Reviews and also Rating to items present in the website.
+Sellers can add items with price and description. And he can also provide discounts to selected products.
+Technology Stack (highlight ones learnt in CS699)
+
+HTML
+CSS
+JavaScript
+BootStrap
+Django
+Git
+List of deliverables (tick mark those which are complete).
+
+ Users should able to buy the products successfully
+ Seller should be able to add,remove or edit the product details
+ Users should be able to provide the ratings to the products.
+Hardware/Software Requirements.
+
+Django
+Python
+Code Editor (eg- Sublime Text, Pycharm)
+Well explained, Operation Details
+
+Users can simply visit the website (localhost:8000/user_app) and purchase items, add items to cart etc. just like any other E-commerce website.
+Sellers can login into his "admin" panel(localhost:8000/admin) using his SuperUser credentials (created via Django). The admin panel allows him to monitor his website, add new products, cater to received ordered etc.
+Primary stakeholders of the product/service built Complete ownership of this website will be given to the Local Shopkeeper who wants to use it to move his shop online.
+
+Team details along with the contribution.
+
+Arance Kurmi (213050056) - Worked on creating database models, Adding the primary Index.html to the website along with My Cart and Product page
+Prince (213050022) - Worked on Database models, Adding Header to webpage, search bar and Product Category page along with Documentation.
+Kumar Shaswat (213050013) - Worked on Database models, Adding footer to the website along with user-specific pages like My Products and Buyed Products.
+Path to Code Documentation (index.html).
+=======
 # TEAM NOOBS  
 
 
@@ -79,3 +122,4 @@ Complete ownership of this website will be given to the Local Shopkeeper who wan
 
 
 **Path to Code Documentation (index.html).**
+>>>>>>> b4a5654361d927efe7d79780085fa8679201e3a3
