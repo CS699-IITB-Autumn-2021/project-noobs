@@ -1,3 +1,4 @@
+
 """
 Django settings for myproject project.
 
@@ -126,3 +127,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+RAZOR_KEY_ID = 'rzp_test_o1DWJoKuhIyfVS'
+RAZOR_KEY_SECRET = 'YTtDwLYsUXIXXKjDoqG79ttq'
+
