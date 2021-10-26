@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 TEAM NOOBS
 Problem Statement or Motivation To design an E-Commerce Grocery website for local shop owners so that they can have an online presence and increase their sales. This initiative for local shop owners seems quite crucial as the entire shopping arena is moving to an online world and also physically visiting shops is not very practical in these Covid times.
 
@@ -122,4 +121,3 @@ Complete ownership of this website will be given to the Local Shopkeeper who wan
 
 
 **Path to Code Documentation (index.html).**
->>>>>>> b4a5654361d927efe7d79780085fa8679201e3a3
