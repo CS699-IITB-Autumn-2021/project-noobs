@@ -442,17 +442,20 @@ razorpay_client = razorpay.Client(
 
 def checkout(request,price):
     user=User.objects.get(userEmail=request.session['userEmail'])
+    address=request.POST['address']
+    user.userAddress=address
+    user.save()
     mode = str(request.POST["paymentmode"])
     print(mode)
     if mode=="Cash On Delivery":
-        address=request.POST['address']
-        user.userAddress=address
+
         sale=Sales(saleUser=user,saleAddress=address,status="Pending",salePrice=price,paymentMode="Cash On Delivery")
         sale.save()
         for product in user.userCart.all(): 
             sale.saleProducts.add(product)
             user.userCart.remove(product)
             product.productQuantity-=1
+            product.save()
         return render(request, 'success.html',{'userName':user.userName})
     else:
         currency = 'INR'
@@ -502,6 +505,7 @@ def paymenthandler(request,price):
                         sale.saleProducts.add(product)
                         user.userCart.remove(product)
                         product.productQuantity-=1
+                        product.save()
  
                     # render success page on successful caputre of payment
                     return render(request, 'success.html',{'userName':user.userName})
