@@ -1,3 +1,4 @@
+
 """myproject URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -22,3 +23,4 @@ urlpatterns = [
 	path('user_app/', include('user_app.urls')),
     path('admin/', admin.site.urls),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+

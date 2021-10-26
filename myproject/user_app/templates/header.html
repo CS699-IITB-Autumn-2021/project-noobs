@@ -1,3 +1,4 @@
+
 {% load static %}
     <style type="text/css">
       
@@ -29,6 +30,16 @@
         margin-top: 150px;
       }
     </style>
+    <script>  
+        function check_pass() {
+            if (document.getElementById('psw1').value ==
+                    document.getElementById('psw2').value) {
+                document.getElementById('submit').disabled = false;
+            } else {
+                document.getElementById('submit').disabled = true;
+            }
+        }
+    </script>  
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <a class="navbar-brand" href="#"><h1 style="font-family: cursive;">NoobsKart</h1></a>
@@ -128,9 +139,9 @@
             <input class="loginput" type="text" name="uname" required placeholder="User Name" required><br><br>
             <input class="loginput" type="email" name="uemail" required placeholder="Email" required><br><br>
             <input class="loginput" type="number" name="ucontact" required placeholder="Contact" required><br><br>
-            <input class="loginput" type="password" name="upass"  placeholder="Password"required><br><br>
-            <input class="loginput" type="password" name="repass"  placeholder="Retype Password"required><br><br>
-            <input class="btn btn-primary" type="submit" value="Register">
+            <input class="loginput" id="psw1" onchange='check_pass();' type="password" name="upass"  placeholder="Password"required><br><br>
+            <input class="loginput" id="psw2" onchange='check_pass();' type="password" name="repass"  placeholder="Retype Password"required><br><br>
+            <input class="btn btn-primary" id= "submit" type="submit" value="Register" disabled/>
         </form>
       </div>
       <div class="modal-footer">
@@ -143,3 +154,4 @@
 {% if message != None%}
    <h6 class="message">{{message}}</h6>
 {%endif%}
+
