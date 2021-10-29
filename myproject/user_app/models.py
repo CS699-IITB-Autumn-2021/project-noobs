@@ -3,16 +3,19 @@ from django.db import models
 # Create your models here.
 class Category(models.Model):
     """We use this for creating category table.
-
+    
     It defines :func:`__str__ function`.
 
     .. note::
 
-       Django automatically converts it to :mod:`sqllite`.
-
+       Django automatically converts it to :mod:`sqlite`.
+    
     """
     categoryName = models.CharField(max_length=50)
     def __str__(self):
+        """
+        This method returns categoryName
+        """
         return f'{self.categoryName}'
 
 
@@ -23,7 +26,7 @@ class Product(models.Model):
 
     .. note::
 
-       Django automatically converts it to :mod:`sqllite`.
+       Django automatically converts it to :mod:`sqlite`.
 
     """
 
@@ -51,7 +54,7 @@ class User(models.Model):
 
     .. note::
 
-       Django automatically converts it to :mod:`sqllite`.
+       Django automatically converts it to :mod:`sqlite`.
 
     """
     userName = models.CharField(max_length=40)
@@ -73,7 +76,7 @@ class Review(models.Model):
 
     .. note::
 
-       Django automatically converts it to :mod:`sqllite`.
+       Django automatically converts it to :mod:`sqlite`.
 
     """
 
@@ -104,7 +107,7 @@ class Sales(models.Model):
 
     .. note::
 
-       Django automatically converts it to :mod:`sqllite`.
+       Django automatically converts it to :mod:`sqlite`.
 
     """
     saleProducts=models.ManyToManyField(Product,related_name="saleProducts")

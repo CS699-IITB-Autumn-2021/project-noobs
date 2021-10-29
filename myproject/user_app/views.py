@@ -11,10 +11,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
 
 # Create your views here.
+
+#index function
 def index(request):
     """
      This method controls the index page.
-
+     
      :param name: request
      :type request: Implicit
      :returns:  render -- index.html page according to if else conditions.
@@ -66,7 +68,7 @@ def index(request):
     return render(request,'index.html',{'categories':categories,'newProducts':newProducts,'bestProducts':bestProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
 
 
-
+#Register function
 def register(request):
     """
      This method takes to registeration page.
@@ -128,7 +130,7 @@ def register(request):
     categories=Category.objects.all()
     return render(request,'index.html',{'categories':categories,'bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
    
-
+# loginUser function
 def loginUser(request):
     """
      This method controls the index page.
@@ -195,6 +197,8 @@ def loginUser(request):
         return render(request,'index.html',{'categories':categories,'userName':userName,'bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
     return render(request,'index.html',{'categories':categories,'bestProducts':bestProducts,'newProducts':newProducts,'viewedProducts':viewedProducts,'buyedProducts':buyedProducts})
 
+
+#logout function
 def logout(request):
     """
      This method deletes the current session of user.
@@ -210,6 +214,7 @@ def logout(request):
     del request.session['userEmail']
     return redirect("index")
 
+#product function
 def product(request,product_id):
     """
      This method controls the product page.
@@ -235,7 +240,7 @@ def product(request,product_id):
         return render(request,"product.html",{'categories':categories,'product':product,'userName':userName,'myProducts':user.userProducts.all(),'sameProducts':sameProducts,'reviews':reviews})
     return render(request,"product.html",{'categories':categories,'product':product,'sameProducts':sameProducts,'reviews':reviews})
     
-
+#getProductsCategory function
 def getProductsCategory(request,selCategory):
     """
      This method controls the product_category page.
@@ -257,6 +262,8 @@ def getProductsCategory(request,selCategory):
         return render(request,"product_category.html",{'products':products,'categories':categories,'selCategory':selCategory,'userName':userName})
     return render(request,"product_category.html",{'products':products,'categories':categories,'selCategory':selCategory})
 
+
+#search function
 def search(request):
     """
      This method controls the search page.
@@ -276,7 +283,7 @@ def search(request):
         return render(request,"product_search.html",{'products':products,'categories':categories,'searchString':searchString,'userName':userName})
     return render(request,"product_search.html",{'products':products,'categories':categories,'searchString':searchString})
 
-
+#myProducts function
 def myProducts(request):
     """
      This method controls the my_products page.
@@ -296,6 +303,7 @@ def myProducts(request):
     return render(request,'my_products.html',{'categories':categories,'products':user.userProducts.all()})
 
 
+#myCart function
 def myCart(request):
     """
      This method controls the my_cart page.
@@ -317,6 +325,8 @@ def myCart(request):
         return render(request,'my_cart.html',{'categories':categories,'userName':userName,'products':user.userCart.all(),'userAddress':user.userAddress,'totalPrice':price})
     return render(request,'my_cart.html',{'categories':categories,'products':user.userCart.all()})
 
+
+#savefav function
 def savefav(request,product_id):
     """
      This method controls the index page.
@@ -335,6 +345,8 @@ def savefav(request,product_id):
     user.userProducts.add(product)
     return redirect('product',product_id)
 
+
+#removefav function
 def removefav(request,product_id):
     """
      This method removes products from wishlist.
@@ -353,6 +365,7 @@ def removefav(request,product_id):
     user.userProducts.remove(product)
     return redirect('product',product_id)
 
+#addToCart function
 def addToCart(request,product_id):
     """
      This method adds your product to cart which you are buying.
@@ -372,6 +385,7 @@ def addToCart(request,product_id):
     return redirect('product',product_id)
 
 
+#buyedProducts function
 def buyedProducts(request):
     """
      This method shows you buyed products.
@@ -390,6 +404,8 @@ def buyedProducts(request):
     print(sales)
     return render(request,'buyed_products.html',{'categories':categories,'userName':user.userName,'sales':sales})
 
+
+#removeCart
 def removeCart(request,product_id):
     """
      This method removes product from the cart.
@@ -408,6 +424,7 @@ def removeCart(request,product_id):
     user.userCart.remove(product)
     return redirect('myCart')
 
+#give_review
 def give_review(request,product_id):
     """
     This method is used to give review to products.
@@ -441,6 +458,7 @@ def give_review(request,product_id):
 razorpay_client = razorpay.Client(
     auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
 
+#checkout function
 def checkout(request,price):
     """
      This method controls the paymenthandler page.
@@ -484,6 +502,7 @@ def checkout(request,price):
         context['userName']=user.userName
         return render(request, 'paymenthandler.html', context=context)
 
+#paymenthandler function
 @csrf_exempt
 def paymenthandler(request,price):
     """

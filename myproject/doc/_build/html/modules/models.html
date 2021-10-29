@@ -8,88 +8,79 @@
 
     <title>models &#8212; NOOBSKART yes documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="views" href="views.html" /> 
+    <link rel="prev" title="views" href="views.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="views.html" title="views"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">NOOBSKART yes documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">models</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="module-user_app.models">
-<span id="models"></span><h1>models<a class="headerlink" href="#module-user_app.models" title="Permalink to this headline">¶</a></h1>
+<span id="models"></span><h1>models<a class="headerlink" href="#module-user_app.models" title="Permalink to this headline"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="user_app.models.Category">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">user_app.models.</span></span><span class="sig-name descname"><span class="pre">Category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Category"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Category" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">user_app.models.</span></span><span class="sig-name descname"><span class="pre">Category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Category"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Category" title="Permalink to this definition"></a></dt>
 <dd><p>We use this for creating category table.</p>
 <p>It defines <code class="xref py py-func docutils literal notranslate"><span class="pre">__str__</span> <span class="pre">function()</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Django automatically converts it to <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqllite</span></code>.</p>
+<p>Django automatically converts it to <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlite</span></code>.</p>
 </div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Category.categoryName">
-<span class="sig-name descname"><span class="pre">categoryName</span></span><a class="headerlink" href="#user_app.models.Category.categoryName" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">categoryName</span></span><a class="headerlink" href="#user_app.models.Category.categoryName" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.Category.__str__">
-<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Category.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Category.__str__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return str(self).</p>
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Category.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Category.__str__" title="Permalink to this definition"></a></dt>
+<dd><p>This method returns categoryName</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="user_app.models.Category.DoesNotExist">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#user_app.models.Category.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#user_app.models.Category.DoesNotExist" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="user_app.models.Category.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#user_app.models.Category.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#user_app.models.Category.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Category.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#user_app.models.Category.id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#user_app.models.Category.id" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Category.objects">
-<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#user_app.models.Category.objects" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#user_app.models.Category.objects" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Category.product_set">
-<span class="sig-name descname"><span class="pre">product_set</span></span><a class="headerlink" href="#user_app.models.Category.product_set" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">product_set</span></span><a class="headerlink" href="#user_app.models.Category.product_set" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related objects manager on the reverse side of a
 many-to-one relation.</p>
 <p>In the example:</p>
@@ -106,93 +97,93 @@ class built by <code class="docutils literal notranslate"><span class="pre">crea
 
 <dl class="py class">
 <dt class="sig sig-object py" id="user_app.models.Product">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">user_app.models.</span></span><span class="sig-name descname"><span class="pre">Product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Product" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">user_app.models.</span></span><span class="sig-name descname"><span class="pre">Product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Product" title="Permalink to this definition"></a></dt>
 <dd><p>We use this for creating Product table with attributes like productBuyed,produductCategory,etc.</p>
 <p>It defines <code class="xref py py-func docutils literal notranslate"><span class="pre">__str__</span> <span class="pre">function()</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Django automatically converts it to <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqllite</span></code>.</p>
+<p>Django automatically converts it to <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlite</span></code>.</p>
 </div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productImage">
-<span class="sig-name descname"><span class="pre">productImage</span></span><a class="headerlink" href="#user_app.models.Product.productImage" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productImage</span></span><a class="headerlink" href="#user_app.models.Product.productImage" title="Permalink to this definition"></a></dt>
 <dd><p>Just like the FileDescriptor, but for ImageFields. The only difference is
 assigning the width/height to the width_field/height_field, if appropriate.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productName">
-<span class="sig-name descname"><span class="pre">productName</span></span><a class="headerlink" href="#user_app.models.Product.productName" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productName</span></span><a class="headerlink" href="#user_app.models.Product.productName" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productDescription">
-<span class="sig-name descname"><span class="pre">productDescription</span></span><a class="headerlink" href="#user_app.models.Product.productDescription" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productDescription</span></span><a class="headerlink" href="#user_app.models.Product.productDescription" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productViewed">
-<span class="sig-name descname"><span class="pre">productViewed</span></span><a class="headerlink" href="#user_app.models.Product.productViewed" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productViewed</span></span><a class="headerlink" href="#user_app.models.Product.productViewed" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productBuyed">
-<span class="sig-name descname"><span class="pre">productBuyed</span></span><a class="headerlink" href="#user_app.models.Product.productBuyed" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productBuyed</span></span><a class="headerlink" href="#user_app.models.Product.productBuyed" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productCompany">
-<span class="sig-name descname"><span class="pre">productCompany</span></span><a class="headerlink" href="#user_app.models.Product.productCompany" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productCompany</span></span><a class="headerlink" href="#user_app.models.Product.productCompany" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productPrice">
-<span class="sig-name descname"><span class="pre">productPrice</span></span><a class="headerlink" href="#user_app.models.Product.productPrice" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productPrice</span></span><a class="headerlink" href="#user_app.models.Product.productPrice" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productDiscount">
-<span class="sig-name descname"><span class="pre">productDiscount</span></span><a class="headerlink" href="#user_app.models.Product.productDiscount" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productDiscount</span></span><a class="headerlink" href="#user_app.models.Product.productDiscount" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productAddedDate">
-<span class="sig-name descname"><span class="pre">productAddedDate</span></span><a class="headerlink" href="#user_app.models.Product.productAddedDate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productAddedDate</span></span><a class="headerlink" href="#user_app.models.Product.productAddedDate" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productQuantity">
-<span class="sig-name descname"><span class="pre">productQuantity</span></span><a class="headerlink" href="#user_app.models.Product.productQuantity" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productQuantity</span></span><a class="headerlink" href="#user_app.models.Product.productQuantity" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productDiscountedPrice">
-<span class="sig-name descname"><span class="pre">productDiscountedPrice</span></span><a class="headerlink" href="#user_app.models.Product.productDiscountedPrice" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productDiscountedPrice</span></span><a class="headerlink" href="#user_app.models.Product.productDiscountedPrice" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productCategory">
-<span class="sig-name descname"><span class="pre">productCategory</span></span><a class="headerlink" href="#user_app.models.Product.productCategory" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productCategory</span></span><a class="headerlink" href="#user_app.models.Product.productCategory" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related object on the forward side of a many-to-one or
 one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <p>In the example:</p>
@@ -205,64 +196,64 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.avgReview">
-<span class="sig-name descname"><span class="pre">avgReview</span></span><a class="headerlink" href="#user_app.models.Product.avgReview" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">avgReview</span></span><a class="headerlink" href="#user_app.models.Product.avgReview" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.noOfReviews">
-<span class="sig-name descname"><span class="pre">noOfReviews</span></span><a class="headerlink" href="#user_app.models.Product.noOfReviews" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">noOfReviews</span></span><a class="headerlink" href="#user_app.models.Product.noOfReviews" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.Product.__str__">
-<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Product.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Product.__str__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Product.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Product.__str__" title="Permalink to this definition"></a></dt>
 <dd><p>Return str(self).</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="user_app.models.Product.DoesNotExist">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#user_app.models.Product.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#user_app.models.Product.DoesNotExist" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="user_app.models.Product.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#user_app.models.Product.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#user_app.models.Product.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.Product.get_next_by_productAddedDate">
-<span class="sig-name descname"><span class="pre">get_next_by_productAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">productAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Product.get_next_by_productAddedDate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_next_by_productAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">productAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Product.get_next_by_productAddedDate" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.Product.get_previous_by_productAddedDate">
-<span class="sig-name descname"><span class="pre">get_previous_by_productAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">productAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Product.get_previous_by_productAddedDate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_previous_by_productAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">productAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Product.get_previous_by_productAddedDate" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#user_app.models.Product.id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#user_app.models.Product.id" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.objects">
-<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#user_app.models.Product.objects" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#user_app.models.Product.objects" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.productCategory_id">
-<span class="sig-name descname"><span class="pre">productCategory_id</span></span><a class="headerlink" href="#user_app.models.Product.productCategory_id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">productCategory_id</span></span><a class="headerlink" href="#user_app.models.Product.productCategory_id" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.review_set">
-<span class="sig-name descname"><span class="pre">review_set</span></span><a class="headerlink" href="#user_app.models.Product.review_set" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">review_set</span></span><a class="headerlink" href="#user_app.models.Product.review_set" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related objects manager on the reverse side of a
 many-to-one relation.</p>
 <p>In the example:</p>
@@ -277,7 +268,7 @@ class built by <code class="docutils literal notranslate"><span class="pre">crea
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.saleProducts">
-<span class="sig-name descname"><span class="pre">saleProducts</span></span><a class="headerlink" href="#user_app.models.Product.saleProducts" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">saleProducts</span></span><a class="headerlink" href="#user_app.models.Product.saleProducts" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related objects manager on the forward and reverse sides of
 a many-to-many relation.</p>
 <p>In the example:</p>
@@ -293,7 +284,7 @@ class built by <code class="docutils literal notranslate"><span class="pre">crea
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.userCart">
-<span class="sig-name descname"><span class="pre">userCart</span></span><a class="headerlink" href="#user_app.models.Product.userCart" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">userCart</span></span><a class="headerlink" href="#user_app.models.Product.userCart" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related objects manager on the forward and reverse sides of
 a many-to-many relation.</p>
 <p>In the example:</p>
@@ -309,7 +300,7 @@ class built by <code class="docutils literal notranslate"><span class="pre">crea
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Product.userProducts">
-<span class="sig-name descname"><span class="pre">userProducts</span></span><a class="headerlink" href="#user_app.models.Product.userProducts" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">userProducts</span></span><a class="headerlink" href="#user_app.models.Product.userProducts" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related objects manager on the forward and reverse sides of
 a many-to-many relation.</p>
 <p>In the example:</p>
@@ -327,51 +318,51 @@ class built by <code class="docutils literal notranslate"><span class="pre">crea
 
 <dl class="py class">
 <dt class="sig sig-object py" id="user_app.models.User">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">user_app.models.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#User"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.User" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">user_app.models.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#User"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.User" title="Permalink to this definition"></a></dt>
 <dd><p>We use this for creating User table with attributes like UserName,UserEamail,etc.</p>
 <p>It defines <code class="xref py py-func docutils literal notranslate"><span class="pre">__str__</span> <span class="pre">function()</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Django automatically converts it to <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqllite</span></code>.</p>
+<p>Django automatically converts it to <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlite</span></code>.</p>
 </div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.User.userName">
-<span class="sig-name descname"><span class="pre">userName</span></span><a class="headerlink" href="#user_app.models.User.userName" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">userName</span></span><a class="headerlink" href="#user_app.models.User.userName" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.User.userEmail">
-<span class="sig-name descname"><span class="pre">userEmail</span></span><a class="headerlink" href="#user_app.models.User.userEmail" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">userEmail</span></span><a class="headerlink" href="#user_app.models.User.userEmail" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.User.userPassword">
-<span class="sig-name descname"><span class="pre">userPassword</span></span><a class="headerlink" href="#user_app.models.User.userPassword" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">userPassword</span></span><a class="headerlink" href="#user_app.models.User.userPassword" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.User.userContact">
-<span class="sig-name descname"><span class="pre">userContact</span></span><a class="headerlink" href="#user_app.models.User.userContact" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">userContact</span></span><a class="headerlink" href="#user_app.models.User.userContact" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.User.userAddedDate">
-<span class="sig-name descname"><span class="pre">userAddedDate</span></span><a class="headerlink" href="#user_app.models.User.userAddedDate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">userAddedDate</span></span><a class="headerlink" href="#user_app.models.User.userAddedDate" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.User.userProducts">
-<span class="sig-name descname"><span class="pre">userProducts</span></span><a class="headerlink" href="#user_app.models.User.userProducts" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">userProducts</span></span><a class="headerlink" href="#user_app.models.User.userProducts" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related objects manager on the forward and reverse sides of
 a many-to-many relation.</p>
 <p>In the example:</p>
@@ -387,7 +378,7 @@ class built by <code class="docutils literal notranslate"><span class="pre">crea
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.User.userCart">
-<span class="sig-name descname"><span class="pre">userCart</span></span><a class="headerlink" href="#user_app.models.User.userCart" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">userCart</span></span><a class="headerlink" href="#user_app.models.User.userCart" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related objects manager on the forward and reverse sides of
 a many-to-many relation.</p>
 <p>In the example:</p>
@@ -403,52 +394,52 @@ class built by <code class="docutils literal notranslate"><span class="pre">crea
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.User.userAddress">
-<span class="sig-name descname"><span class="pre">userAddress</span></span><a class="headerlink" href="#user_app.models.User.userAddress" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">userAddress</span></span><a class="headerlink" href="#user_app.models.User.userAddress" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.User.__str__">
-<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#User.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.User.__str__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#User.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.User.__str__" title="Permalink to this definition"></a></dt>
 <dd><p>Return str(self).</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="user_app.models.User.DoesNotExist">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#user_app.models.User.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#user_app.models.User.DoesNotExist" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="user_app.models.User.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#user_app.models.User.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#user_app.models.User.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.User.get_next_by_userAddedDate">
-<span class="sig-name descname"><span class="pre">get_next_by_userAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">userAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.User.get_next_by_userAddedDate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_next_by_userAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">userAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.User.get_next_by_userAddedDate" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.User.get_previous_by_userAddedDate">
-<span class="sig-name descname"><span class="pre">get_previous_by_userAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">userAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.User.get_previous_by_userAddedDate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_previous_by_userAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">userAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.User.get_previous_by_userAddedDate" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.User.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#user_app.models.User.id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#user_app.models.User.id" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.User.objects">
-<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#user_app.models.User.objects" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#user_app.models.User.objects" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.User.review_set">
-<span class="sig-name descname"><span class="pre">review_set</span></span><a class="headerlink" href="#user_app.models.User.review_set" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">review_set</span></span><a class="headerlink" href="#user_app.models.User.review_set" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related objects manager on the reverse side of a
 many-to-one relation.</p>
 <p>In the example:</p>
@@ -463,7 +454,7 @@ class built by <code class="docutils literal notranslate"><span class="pre">crea
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.User.sales_set">
-<span class="sig-name descname"><span class="pre">sales_set</span></span><a class="headerlink" href="#user_app.models.User.sales_set" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">sales_set</span></span><a class="headerlink" href="#user_app.models.User.sales_set" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related objects manager on the reverse side of a
 many-to-one relation.</p>
 <p>In the example:</p>
@@ -480,37 +471,37 @@ class built by <code class="docutils literal notranslate"><span class="pre">crea
 
 <dl class="py class">
 <dt class="sig sig-object py" id="user_app.models.Review">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">user_app.models.</span></span><span class="sig-name descname"><span class="pre">Review</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Review"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Review" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">user_app.models.</span></span><span class="sig-name descname"><span class="pre">Review</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Review"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Review" title="Permalink to this definition"></a></dt>
 <dd><p>We use this for creating Review table with attributes like reviewTitle,reviewUseretc.</p>
 <p>It defines <code class="xref py py-func docutils literal notranslate"><span class="pre">__str__</span> <span class="pre">function()</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Django automatically converts it to <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqllite</span></code>.</p>
+<p>Django automatically converts it to <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlite</span></code>.</p>
 </div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Review.reviewTitle">
-<span class="sig-name descname"><span class="pre">reviewTitle</span></span><a class="headerlink" href="#user_app.models.Review.reviewTitle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reviewTitle</span></span><a class="headerlink" href="#user_app.models.Review.reviewTitle" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Review.reviewDesc">
-<span class="sig-name descname"><span class="pre">reviewDesc</span></span><a class="headerlink" href="#user_app.models.Review.reviewDesc" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reviewDesc</span></span><a class="headerlink" href="#user_app.models.Review.reviewDesc" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Review.reviewRating">
-<span class="sig-name descname"><span class="pre">reviewRating</span></span><a class="headerlink" href="#user_app.models.Review.reviewRating" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reviewRating</span></span><a class="headerlink" href="#user_app.models.Review.reviewRating" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Review.reviewUser">
-<span class="sig-name descname"><span class="pre">reviewUser</span></span><a class="headerlink" href="#user_app.models.Review.reviewUser" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reviewUser</span></span><a class="headerlink" href="#user_app.models.Review.reviewUser" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related object on the forward side of a many-to-one or
 one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <p>In the example:</p>
@@ -523,7 +514,7 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Review.reviewProduct">
-<span class="sig-name descname"><span class="pre">reviewProduct</span></span><a class="headerlink" href="#user_app.models.Review.reviewProduct" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reviewProduct</span></span><a class="headerlink" href="#user_app.models.Review.reviewProduct" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related object on the forward side of a many-to-one or
 one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <p>In the example:</p>
@@ -536,73 +527,73 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Review.reviewAddedDate">
-<span class="sig-name descname"><span class="pre">reviewAddedDate</span></span><a class="headerlink" href="#user_app.models.Review.reviewAddedDate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reviewAddedDate</span></span><a class="headerlink" href="#user_app.models.Review.reviewAddedDate" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.Review.__str__">
-<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Review.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Review.__str__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Review.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Review.__str__" title="Permalink to this definition"></a></dt>
 <dd><p>Return str(self).</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="user_app.models.Review.DoesNotExist">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#user_app.models.Review.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#user_app.models.Review.DoesNotExist" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="user_app.models.Review.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#user_app.models.Review.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#user_app.models.Review.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.Review.get_next_by_reviewAddedDate">
-<span class="sig-name descname"><span class="pre">get_next_by_reviewAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">reviewAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Review.get_next_by_reviewAddedDate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_next_by_reviewAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">reviewAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Review.get_next_by_reviewAddedDate" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.Review.get_previous_by_reviewAddedDate">
-<span class="sig-name descname"><span class="pre">get_previous_by_reviewAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">reviewAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Review.get_previous_by_reviewAddedDate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_previous_by_reviewAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">reviewAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Review.get_previous_by_reviewAddedDate" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Review.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#user_app.models.Review.id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#user_app.models.Review.id" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Review.objects">
-<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#user_app.models.Review.objects" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#user_app.models.Review.objects" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Review.reviewProduct_id">
-<span class="sig-name descname"><span class="pre">reviewProduct_id</span></span><a class="headerlink" href="#user_app.models.Review.reviewProduct_id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reviewProduct_id</span></span><a class="headerlink" href="#user_app.models.Review.reviewProduct_id" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Review.reviewUser_id">
-<span class="sig-name descname"><span class="pre">reviewUser_id</span></span><a class="headerlink" href="#user_app.models.Review.reviewUser_id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reviewUser_id</span></span><a class="headerlink" href="#user_app.models.Review.reviewUser_id" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="user_app.models.Sales">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">user_app.models.</span></span><span class="sig-name descname"><span class="pre">Sales</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Sales"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Sales" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">user_app.models.</span></span><span class="sig-name descname"><span class="pre">Sales</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Sales"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Sales" title="Permalink to this definition"></a></dt>
 <dd><p>We use this for for creating a sales table.</p>
 <p>It defines <code class="xref py py-func docutils literal notranslate"><span class="pre">__str__</span> <span class="pre">function()</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Django automatically converts it to <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqllite</span></code>.</p>
+<p>Django automatically converts it to <code class="xref py py-mod docutils literal notranslate"><span class="pre">sqlite</span></code>.</p>
 </div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.saleProducts">
-<span class="sig-name descname"><span class="pre">saleProducts</span></span><a class="headerlink" href="#user_app.models.Sales.saleProducts" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">saleProducts</span></span><a class="headerlink" href="#user_app.models.Sales.saleProducts" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related objects manager on the forward and reverse sides of
 a many-to-many relation.</p>
 <p>In the example:</p>
@@ -618,7 +609,7 @@ class built by <code class="docutils literal notranslate"><span class="pre">crea
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.saleUser">
-<span class="sig-name descname"><span class="pre">saleUser</span></span><a class="headerlink" href="#user_app.models.Sales.saleUser" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">saleUser</span></span><a class="headerlink" href="#user_app.models.Sales.saleUser" title="Permalink to this definition"></a></dt>
 <dd><p>Accessor to the related object on the forward side of a many-to-one or
 one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <p>In the example:</p>
@@ -631,111 +622,111 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.saleAddedDate">
-<span class="sig-name descname"><span class="pre">saleAddedDate</span></span><a class="headerlink" href="#user_app.models.Sales.saleAddedDate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">saleAddedDate</span></span><a class="headerlink" href="#user_app.models.Sales.saleAddedDate" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.saleAddress">
-<span class="sig-name descname"><span class="pre">saleAddress</span></span><a class="headerlink" href="#user_app.models.Sales.saleAddress" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">saleAddress</span></span><a class="headerlink" href="#user_app.models.Sales.saleAddress" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.status">
-<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#user_app.models.Sales.status" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#user_app.models.Sales.status" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.salePrice">
-<span class="sig-name descname"><span class="pre">salePrice</span></span><a class="headerlink" href="#user_app.models.Sales.salePrice" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">salePrice</span></span><a class="headerlink" href="#user_app.models.Sales.salePrice" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.paymentMode">
-<span class="sig-name descname"><span class="pre">paymentMode</span></span><a class="headerlink" href="#user_app.models.Sales.paymentMode" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">paymentMode</span></span><a class="headerlink" href="#user_app.models.Sales.paymentMode" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.razorpay_order_id">
-<span class="sig-name descname"><span class="pre">razorpay_order_id</span></span><a class="headerlink" href="#user_app.models.Sales.razorpay_order_id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">razorpay_order_id</span></span><a class="headerlink" href="#user_app.models.Sales.razorpay_order_id" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.razorpay_payment_id">
-<span class="sig-name descname"><span class="pre">razorpay_payment_id</span></span><a class="headerlink" href="#user_app.models.Sales.razorpay_payment_id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">razorpay_payment_id</span></span><a class="headerlink" href="#user_app.models.Sales.razorpay_payment_id" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.razorpay_signature">
-<span class="sig-name descname"><span class="pre">razorpay_signature</span></span><a class="headerlink" href="#user_app.models.Sales.razorpay_signature" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">razorpay_signature</span></span><a class="headerlink" href="#user_app.models.Sales.razorpay_signature" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.Sales.__str__">
-<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Sales.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Sales.__str__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/user_app/models.html#Sales.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#user_app.models.Sales.__str__" title="Permalink to this definition"></a></dt>
 <dd><p>Return str(self).</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="user_app.models.Sales.DoesNotExist">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#user_app.models.Sales.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#user_app.models.Sales.DoesNotExist" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="user_app.models.Sales.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#user_app.models.Sales.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#user_app.models.Sales.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.Sales.get_next_by_saleAddedDate">
-<span class="sig-name descname"><span class="pre">get_next_by_saleAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">saleAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Sales.get_next_by_saleAddedDate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_next_by_saleAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">saleAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Sales.get_next_by_saleAddedDate" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.Sales.get_paymentMode_display">
-<span class="sig-name descname"><span class="pre">get_paymentMode_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">paymentMode&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Sales.get_paymentMode_display" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_paymentMode_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">paymentMode&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Sales.get_paymentMode_display" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.Sales.get_previous_by_saleAddedDate">
-<span class="sig-name descname"><span class="pre">get_previous_by_saleAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">saleAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Sales.get_previous_by_saleAddedDate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_previous_by_saleAddedDate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">saleAddedDate&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Sales.get_previous_by_saleAddedDate" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="user_app.models.Sales.get_status_display">
-<span class="sig-name descname"><span class="pre">get_status_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">status&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Sales.get_status_display" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_status_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">status&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#user_app.models.Sales.get_status_display" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#user_app.models.Sales.id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#user_app.models.Sales.id" title="Permalink to this definition"></a></dt>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.objects">
-<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#user_app.models.Sales.objects" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#user_app.models.Sales.objects" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="user_app.models.Sales.saleUser_id">
-<span class="sig-name descname"><span class="pre">saleUser_id</span></span><a class="headerlink" href="#user_app.models.Sales.saleUser_id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">saleUser_id</span></span><a class="headerlink" href="#user_app.models.Sales.saleUser_id" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -743,22 +734,35 @@ object the first time, the query is executed.</p>
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="views.html"
-                        title="previous chapter">views</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/modules/models.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
+<h1 class="logo"><a href="../index.html">NOOBSKART</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="views.html">views</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">models</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="views.html" title="previous chapter">views</a></li>
+  </ul></li>
+</ul>
+</div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -769,29 +773,32 @@ object the first time, the query is executed.</p>
     </div>
 </div>
 <script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="views.html" title="views"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">NOOBSKART yes documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">models</a></li> 
-      </ul>
+    <div class="footer">
+      &copy;2021, prince.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/modules/models.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, prince.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
-    </div>
+
+    
+
+    
   </body>
 </html>
